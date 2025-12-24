@@ -1,0 +1,43 @@
+/* GH Highlight Me - Highlighting Styles */
+
+.gh-highlight-me {
+  background-color: #fff3cd;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-weight: 500;
+}
+
+/* Special highlighting for user's own username */
+.gh-highlight-me-self {
+  background-color: #d1ecf1;
+  border: 1px solid #bee5eb;
+  font-weight: 600;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .gh-highlight-me {
+    background-color: #6e5a0d;
+    color: #fff3cd;
+  }
+  
+  .gh-highlight-me-self {
+    background-color: #0c4d5f;
+    border-color: #0c5460;
+    color: #d1ecf1;
+  }
+}
+
+/* GitHub dark theme support */
+[data-color-mode="dark"] .gh-highlight-me,
+[data-dark-theme*="dark"] .gh-highlight-me {
+  background-color: #6e5a0d;
+  color: #fff3cd;
+}
+
+[data-color-mode="dark"] .gh-highlight-me-self,
+[data-dark-theme*="dark"] .gh-highlight-me-self {
+  background-color: #0c4d5f;
+  border-color: #0c5460;
+  color: #d1ecf1;
+}

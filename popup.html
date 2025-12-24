@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GH Highlight Me</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 300px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+      padding: 16px;
+      background: #ffffff;
+      color: #24292f;
+    }
+    
+    h1 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #24292f;
+    }
+    
+    .info-box {
+      background: #ddf4ff;
+      border: 1px solid #54aeff;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: #0969da;
+    }
+    
+    .info-box strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    
+    .stats {
+      background: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    
+    .stat-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .stat-label {
+      color: #57606a;
+    }
+    
+    .stat-value {
+      font-weight: 600;
+      color: #24292f;
+    }
+    
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    button {
+      width: 100%;
+      padding: 8px 16px;
+      background: #0969da;
+      color: white;
+      border: 1px solid rgba(27, 31, 36, 0.15);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    
+    button:hover {
+      background: #0860ca;
+    }
+    
+    button.secondary {
+      background: #f6f8fa;
+      color: #24292f;
+    }
+    
+    button.secondary:hover {
+      background: #f3f4f6;
+    }
+    
+    .footer {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 11px;
+      color: #57606a;
+    }
+  </style>
+</head>
+<body>
+  <h1>GH Highlight Me</h1>
+  
+  <div class="info-box">
+    <strong>Active on GitHub</strong>
+    Highlighting your username and custom identifiers.
+  </div>
+  
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-label">Username:</span>
+      <span class="stat-value" id="username">-</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Identifiers:</span>
+      <span class="stat-value" id="identifierCount">0</span>
+    </div>
+  </div>
+  
+  <div class="button-group">
+    <button id="openOptions">Open Settings</button>
+    <button class="secondary" id="reloadPage">Reload GitHub Page</button>
+  </div>
+  
+  <div class="footer">
+    v1.0.0
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
