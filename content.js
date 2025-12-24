@@ -199,21 +199,46 @@
     
     // Target GitHub-specific content areas
     const selectors = [
+      // Issues and PRs
       '.js-discussion',           // Issues and PR discussions
       '.comment-body',            // Comments
-      '.commit-desc',             // Commit messages
-      '.commit-title',            // Commit titles
       '.timeline-comment',        // Timeline comments
       '.review-comment',          // Review comments
       '.js-issue-row',            // Issue list items
       '.js-navigation-item',      // PR list items
-      '.Box-row',                 // Various list rows
+      '.TimelineItem-body',       // Timeline items
+      '.TimelineItem',            // Timeline items container
+      // Commits list page
+      '[data-testid="list-view-items"]', // Commits list container
+      '[data-testid="commit-row-item"]', // Individual commit row
+      '.js-commits-list-item',    // Commits list item
+      '.js-navigation-container', // Navigation container
+      // Commits general
+      '.commit-title',            // Commit titles
+      '.commit-desc',             // Commit descriptions
+      '.commit-message',          // Commit message on list
+      '.commits-list-item',       // Commits list item
+      '.markdown-title',          // Markdown title in commits
+      'a.message',                // Commit message link
+      '.commit-group',            // Commit group on repo page
+      'li.Box-row',               // Commit rows in box
+      // Authors
       'td.commit-author',         // Commit authors
       'a.commit-author',          // Commit author links
       '.author',                  // Various author elements
-      '.TimelineItem-body',       // Timeline items
+      '[data-hovercard-type="user"]', // User hovercard elements
+      // Others
+      '.Box-row',                 // Various list rows
       '.file-header',             // File headers in diffs
-      '[data-hovercard-type="user"]' // User hovercard elements
+      // Generic containers
+      '[data-hpc]',               // GitHub's new UI containers
+      '.react-directory-commit-message', // React commit messages
+      '#repo-content-turbo-frame', // Turbo frame content
+      // Broad selectors for new GitHub UI
+      '[class*="commit"]',        // Any element with commit in class
+      '[class*="author"]',        // Any element with author in class
+      'main [role="main"]',       // Main content role
+      'main'                      // Main content area (fallback)
     ];
     
     selectors.forEach(selector => {
