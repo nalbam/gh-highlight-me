@@ -23,9 +23,13 @@ document.getElementById('openOptions').addEventListener('click', () => {
 document.getElementById('reloadPage').addEventListener('click', async () => {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab && tab.url && tab.url.includes('github.com')) {
-      chrome.tabs.reload(tab.id);
-      window.close();
+    if (tab && tab.url) {
+      // Properly validate GitHub URL
+      const url = new URL(tab.url);
+      if (url.hostname === 'github.com' || url.hostname.endsWith('.github.com')) {
+        chrome.tabs.reload(tab.id);
+        window.close();
+      }
     }
   } catch (error) {
     console.error('Error reloading page:', error);
