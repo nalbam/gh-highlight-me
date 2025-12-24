@@ -1,0 +1,31 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - VERSION
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Package
+        run: |
+          bash ./package.sh
+
+      - name: Release to GitHub
+        uses: opspresso/action-builder@master
+        with:
+          args: --release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ASSET_PATH: ./release

@@ -1,13 +1,11 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "GH Highlight Me",
   "description": "Highlights your GitHub username and custom identifiers on issues, PRs, comments, reviews, and commits.",
   "version": "1.0.0",
   "permissions": [
     "activeTab",
-    "storage"
-  ],
-  "host_permissions": [
+    "storage",
     "https://github.com/*"
   ],
   "content_scripts": [
@@ -24,7 +22,7 @@
       "run_at": "document_end"
     }
   ],
-  "action": {
+  "browser_action": {
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -33,7 +31,10 @@
     "default_popup": "popup.html",
     "default_title": "GH Highlight Me"
   },
-  "options_page": "options.html",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
