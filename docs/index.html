@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GH Highlight Me - Browser Extension</title>
+  <meta name="description" content="Highlights your GitHub username and custom identifiers on issues, PRs, comments, reviews, and commits.">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="icon.png" alt="GH Highlight Me" width="40" height="40">
+        <span>GH Highlight Me</span>
+      </div>
+      <nav class="nav">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/nalbam/gh-highlight-me" target="_blank">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Never Miss Your<br><span class="gradient-text">@mentions</span></h1>
+      <p class="hero-description">
+        Highlights your GitHub username and custom identifiers on issues, PRs, comments, reviews, and commits. Instantly spot when someone mentions you.
+      </p>
+      <div class="hero-buttons">
+        <a href="#install" class="btn btn-primary">
+          Install Now
+        </a>
+        <a href="https://github.com/nalbam/gh-highlight-me" class="btn btn-secondary" target="_blank">
+          View Source
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="preview">
+    <div class="container">
+      <div class="highlight-demo">
+        <p>
+          <strong>@octocat</strong> commented: Hey <span class="highlight-self">@nalbam</span>, thanks for the contribution!
+          Can you also get <span class="highlight-other">@frontend-team</span> to review the CSS changes?
+          Also cc <span class="highlight-other">@design-team</span> for the UI feedback.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">&#127919;</div>
+          <h3>Auto-detection</h3>
+          <p>Automatically detects your GitHub username when you're logged in. No manual setup needed.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#9889;</div>
+          <h3>Custom Identifiers</h3>
+          <p>Add team names, other usernames, or keywords you want to track. Highlight what matters to you.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128260;</div>
+          <h3>SPA Support</h3>
+          <p>Works seamlessly with GitHub's PJAX navigation. Highlights persist as you browse.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#127912;</div>
+          <h3>Smart Highlighting</h3>
+          <p>Different colors for your username (blue) vs other identifiers (yellow). Easy to distinguish.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#127763;</div>
+          <h3>Dark Mode</h3>
+          <p>Full support for GitHub's dark theme. Looks great in any color mode.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128274;</div>
+          <h3>Privacy Focused</h3>
+          <p>No data collection. No external requests. Everything stays local on your device.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="how-it-works">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Install</h3>
+          <p>Add the extension to Chrome or Firefox from the official stores.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Configure</h3>
+          <p>Your username is auto-detected. Add any additional identifiers you want to track.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Browse</h3>
+          <p>Visit GitHub and instantly see your mentions highlighted across issues, PRs, and comments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="install" class="install">
+    <div class="container">
+      <h2>Installation</h2>
+      <div class="install-options">
+        <div class="install-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" alt="Chrome" width="64" height="64">
+          <h3>Chrome / Edge</h3>
+          <p>Install from Chrome Web Store</p>
+          <a href="#" class="btn btn-primary">Coming Soon</a>
+        </div>
+        <div class="install-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg" alt="Firefox" width="64" height="64">
+          <h3>Firefox</h3>
+          <p>Install from Firefox Add-ons</p>
+          <a href="#" class="btn btn-primary">Coming Soon</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="icon.png" alt="GH Highlight Me" width="32" height="32">
+          <span>GH Highlight Me</span>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/nalbam/gh-highlight-me" target="_blank">GitHub</a>
+          <a href="https://github.com/nalbam/gh-highlight-me/issues" target="_blank">Issues</a>
+          <a href="https://github.com/nalbam/gh-highlight-me/blob/main/LICENSE" target="_blank">License</a>
+          <a href="privacy.html">Privacy</a>
+        </div>
+      </div>
+      <p class="copyright">Open Source Project by <a href="https://github.com/nalbam" target="_blank">nalbam</a></p>
+    </div>
+  </footer>
+</body>
+</html>
