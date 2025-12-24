@@ -81,26 +81,44 @@ function updatePreview() {
   const previewText = document.getElementById('previewText');
   
   if (!username && identifiers.length === 0) {
-    previewText.innerHTML = 'Configure your username and identifiers above to see a preview.';
+    previewText.textContent = 'Configure your username and identifiers above to see a preview.';
     return;
   }
   
-  let text = 'Example GitHub comment: ';
+  // Clear existing content
+  previewText.innerHTML = '';
+  
+  // Create text elements safely
+  const addText = (text) => {
+    previewText.appendChild(document.createTextNode(text));
+  };
+  
+  const addHighlight = (text, isSelf = false) => {
+    const span = document.createElement('span');
+    span.className = isSelf ? 'gh-highlight-me gh-highlight-me-self' : 'gh-highlight-me';
+    span.textContent = text;
+    previewText.appendChild(span);
+  };
+  
+  addText('Example GitHub comment: ');
   
   if (username) {
-    text += `Hey <span class="gh-highlight-me gh-highlight-me-self">${username}</span>, `;
+    addText('Hey ');
+    addHighlight(username, true);
+    addText(', ');
   }
   
-  text += 'thanks for the contribution! ';
+  addText('thanks for the contribution! ');
   
   if (identifiers.length > 0) {
-    text += identifiers.map(id => 
-      `<span class="gh-highlight-me">${id}</span>`
-    ).join(', ');
-    text += ' will review this.';
+    identifiers.forEach((id, index) => {
+      if (index > 0) {
+        addText(', ');
+      }
+      addHighlight(id);
+    });
+    addText(' will review this.');
   }
-  
-  previewText.innerHTML = text;
 }
 
 // Save settings

@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "Highlights your GitHub username and custom identifiers on issues, PRs, comments, reviews, and commits",
   "permissions": [
-    "storage"
+    "storage",
+    "activeTab"
   ],
   "host_permissions": [
     "https://github.com/*"
