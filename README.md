@@ -2,13 +2,16 @@
 
 A Chrome Extension (Manifest V3) that highlights your GitHub username and configurable identifiers on issues, PRs, comments, reviews, and commits.
 
+[![build](https://img.shields.io/github/actions/workflow/status/nalbam/gh-highlight-me/push.yml?branch=main&style=for-the-badge&logo=github)](https://github.com/nalbam/gh-highlight-me/actions/workflows/push.yml)
+[![release](https://img.shields.io/github/v/release/nalbam/gh-highlight-me?style=for-the-badge&logo=github)](https://github.com/nalbam/gh-highlight-me/releases)
+
 ## Features
 
 - 🎯 **Auto-detection**: Automatically detects and highlights your GitHub username
 - ⚡ **Custom Identifiers**: Add team names, usernames, or keywords to highlight
+- 🎨 **Customizable Colors**: Choose custom colors for your username and each identifier
 - 🔄 **SPA Support**: Works seamlessly with GitHub's PJAX/SPA navigation
-- 🎨 **Smart Highlighting**: Different styles for your username vs. other identifiers
-- 🌙 **Dark Mode**: Full support for GitHub's dark theme
+- 🌙 **Dark Mode**: Full support for GitHub's dark theme with auto-contrast text
 - 🚀 **Performance**: Efficient mutation observer with debouncing
 - 🔒 **Privacy**: Minimal permissions, works locally
 
@@ -54,10 +57,19 @@ In the options page, you can add:
 ### How It Works
 
 Once configured, the extension will:
-- Highlight your username with a special blue background
-- Highlight other identifiers with a yellow background
+- Highlight your username with your chosen color (default: light blue #d1ecf1)
+- Highlight each identifier with its own custom color (default: light yellow #fff3cd)
+- Automatically calculate text color for optimal contrast and readability
 - Automatically update when you navigate between GitHub pages
 - Respond to real-time updates (new comments, etc.)
+
+### Customizing Colors
+
+1. Open the extension options page
+2. Click the color picker next to your username to choose a custom color
+3. Click the color picker next to any identifier to set its individual color
+4. Changes are reflected in real-time in the preview
+5. Click "Save Settings" to apply the colors across GitHub
 
 ## Development
 
@@ -112,6 +124,14 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 MIT License - see LICENSE file for details
 
 ## Changelog
+
+### Version 1.1.0 (Color Customization)
+- 🎨 **NEW**: Customizable colors for username and identifiers
+- 🎨 **NEW**: Individual color picker for each identifier
+- 🎨 **NEW**: Auto-contrast text color calculation (WCAG compliant)
+- 🎨 **NEW**: Real-time color preview in options page
+- 🔄 **IMPROVED**: Storage schema migration for backward compatibility
+- 🔄 **IMPROVED**: Enhanced options page UI with color pickers
 
 ### Version 1.0.0 (Initial Release)
 - GitHub username auto-detection
