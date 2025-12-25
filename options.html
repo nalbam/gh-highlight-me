@@ -82,6 +82,47 @@
       border-color: #0969da;
       box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
     }
+
+    .username-color-group {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .username-color-group input[type="text"] {
+      flex: 1;
+    }
+
+    .color-picker-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .color-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #57606a;
+    }
+
+    input[type="color"] {
+      width: 60px;
+      height: 38px;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 2px;
+      background: #ffffff;
+    }
+
+    input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 2px;
+    }
+
+    input[type="color"]::-webkit-color-swatch {
+      border: none;
+      border-radius: 4px;
+    }
     
     .identifier-list {
       list-style: none;
@@ -96,14 +137,20 @@
       border-radius: 6px;
       margin-bottom: 8px;
       background: #f6f8fa;
+      gap: 12px;
     }
-    
+
     .identifier-item span {
       flex: 1;
       font-size: 14px;
       color: #24292f;
     }
-    
+
+    .identifier-item .identifier-color-picker {
+      width: 50px;
+      height: 32px;
+    }
+
     .identifier-item button {
       background: none;
       border: none;
@@ -113,7 +160,7 @@
       padding: 4px 8px;
       border-radius: 4px;
     }
-    
+
     .identifier-item button:hover {
       background: #ffebe9;
     }
@@ -225,7 +272,13 @@
     <h2>Your GitHub Username</h2>
     <div class="form-group">
       <label for="myUsername">Username</label>
-      <input type="text" id="myUsername" placeholder="e.g., octocat">
+      <div class="username-color-group">
+        <input type="text" id="myUsername" placeholder="e.g., octocat">
+        <div class="color-picker-wrapper">
+          <label for="usernameColor" class="color-label">Highlight Color</label>
+          <input type="color" id="usernameColor" value="#d1ecf1">
+        </div>
+      </div>
       <p class="help-text">Your GitHub username will be highlighted with a special style.</p>
     </div>
   </div>

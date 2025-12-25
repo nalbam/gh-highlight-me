@@ -6,21 +6,89 @@
 
   let config = {
     myUsername: '',
+    usernameColor: '#d1ecf1',
     identifiers: []
   };
 
   let isProcessing = false;
   let processingQueue = [];
 
+  // Utility Functions
+
+  // Calculate black or white text color based on background brightness
+  function getContrastTextColor(hexColor) {
+    // Remove # if present
+    const hex = hexColor.replace('#', '');
+
+    // Convert to RGB
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+
+    // Calculate relative luminance (WCAG formula)
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+    // Return black for light backgrounds, white for dark backgrounds
+    return luminance > 0.5 ? '#000000' : '#ffffff';
+  }
+
+  // Validate hex color format
+  function isValidHexColor(color) {
+    return /^#[0-9A-F]{6}$/i.test(color);
+  }
+
+  // Ensure color has # prefix and is uppercase
+  function normalizeColor(color) {
+    if (!color) return '#fff3cd';
+    if (color.startsWith('#')) return color.toUpperCase();
+    return '#' + color.toUpperCase();
+  }
+
+  // Migrate old storage format to new format
+  async function migrateStorageIfNeeded() {
+    const result = await chrome.storage.sync.get(['myUsername', 'usernameColor', 'identifiers']);
+
+    let needsMigration = false;
+    let newData = {};
+
+    // Check if usernameColor exists
+    if (!result.usernameColor && result.myUsername) {
+      newData.usernameColor = '#d1ecf1'; // default blue
+      needsMigration = true;
+    }
+
+    // Check if identifiers need migration
+    if (result.identifiers && result.identifiers.length > 0) {
+      if (typeof result.identifiers[0] === 'string') {
+        // Old format detected - migrate to new format
+        newData.identifiers = result.identifiers.map(text => ({
+          text: text,
+          color: '#fff3cd' // default yellow
+        }));
+        needsMigration = true;
+      }
+    }
+
+    if (needsMigration) {
+      await chrome.storage.sync.set(newData);
+    }
+
+    return needsMigration;
+  }
+
   // Load configuration from storage
   async function loadConfig() {
     try {
+      // Run migration first
+      await migrateStorageIfNeeded();
+
       const result = await chrome.storage.sync.get({
         myUsername: '',
+        usernameColor: '#d1ecf1',
         identifiers: []
       });
       config = result;
-      
+
       // If username is empty, try to get it from GitHub page
       if (!config.myUsername) {
         const username = getCurrentUsername();
@@ -28,6 +96,11 @@
           config.myUsername = username;
           await chrome.storage.sync.set({ myUsername: username });
         }
+      }
+
+      // Ensure usernameColor has default
+      if (!config.usernameColor) {
+        config.usernameColor = '#d1ecf1';
       }
     } catch (error) {
       console.error('GH Highlight Me: Error loading config:', error);
@@ -54,9 +127,11 @@
 
   // Create regex pattern for matching identifiers
   function createPattern() {
-    const allIdentifiers = [config.myUsername, ...config.identifiers].filter(Boolean);
+    const usernameText = config.myUsername ? [config.myUsername] : [];
+    const identifierTexts = config.identifiers.map(id => id.text);
+    const allIdentifiers = [...usernameText, ...identifierTexts].filter(Boolean);
     if (allIdentifiers.length === 0) return null;
-    
+
     // Escape special regex characters
     const escaped = allIdentifiers.map(id => id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
     return new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
@@ -89,45 +164,68 @@
     if (!text || !pattern.test(text)) {
       return;
     }
-    
+
     const parent = textNode.parentNode;
     if (!parent || !shouldHighlight(parent)) {
       return;
     }
-    
+
     // Create a fragment with highlighted spans
     const fragment = document.createDocumentFragment();
     let lastIndex = 0;
     let match;
-    
+
     // Reset regex
     pattern.lastIndex = 0;
-    
+
     while ((match = pattern.exec(text)) !== null) {
       // Add text before match
       if (match.index > lastIndex) {
         fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
       }
-      
-      // Add highlighted span
+
+      // Determine which identifier matched
+      const matchedText = match[0];
+      let bgColor = '#fff3cd'; // default
+      let isUsername = false;
+
+      if (config.myUsername && matchedText.toLowerCase() === config.myUsername.toLowerCase()) {
+        bgColor = config.usernameColor || '#d1ecf1';
+        isUsername = true;
+      } else {
+        // Find matching identifier
+        const identifier = config.identifiers.find(
+          id => id.text.toLowerCase() === matchedText.toLowerCase()
+        );
+        if (identifier) {
+          bgColor = identifier.color || '#fff3cd';
+        }
+      }
+
+      // Calculate text color for readability
+      const textColor = getContrastTextColor(bgColor);
+
+      // Add highlighted span with inline styles
       const span = document.createElement('span');
       span.className = 'gh-highlight-me';
-      span.textContent = match[0];
-      
-      // Add special class for my username
-      if (config.myUsername && match[0].toLowerCase() === config.myUsername.toLowerCase()) {
+      if (isUsername) {
         span.classList.add('gh-highlight-me-self');
       }
-      
+      span.textContent = matchedText;
+
+      // Apply inline styles for colors
+      span.style.backgroundColor = bgColor;
+      span.style.color = textColor;
+
       fragment.appendChild(span);
       lastIndex = pattern.lastIndex;
     }
-    
+
     // Add remaining text
     if (lastIndex < text.length) {
       fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
     }
-    
+
     // Replace the text node with the fragment
     parent.replaceChild(fragment, textNode);
   }
@@ -275,17 +373,22 @@
   chrome.storage.onChanged.addListener((changes, namespace) => {
     if (namespace === 'sync') {
       let configChanged = false;
-      
+
       if (changes.myUsername) {
         config.myUsername = changes.myUsername.newValue || '';
         configChanged = true;
       }
-      
+
+      if (changes.usernameColor) {
+        config.usernameColor = changes.usernameColor.newValue || '#d1ecf1';
+        configChanged = true;
+      }
+
       if (changes.identifiers) {
         config.identifiers = changes.identifiers.newValue || [];
         configChanged = true;
       }
-      
+
       if (configChanged) {
         // Remove all existing highlights
         document.querySelectorAll('.gh-highlight-me').forEach(span => {
@@ -293,7 +396,7 @@
           const textNode = document.createTextNode(text);
           span.parentNode.replaceChild(textNode, span);
         });
-        
+
         // Re-process the page
         scheduleProcessing();
       }

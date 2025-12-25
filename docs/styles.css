@@ -10,8 +10,8 @@
   --primary-dark: #1a7f37;
   --secondary: #24292f;
   --accent: #0969da;
-  --highlight-self: #ddf4ff;
-  --highlight-other: #fff8c5;
+  --highlight-self: #d1ecf1;
+  --highlight-other: #fff3cd;
   --text: #1f2328;
   --text-light: #656d76;
   --bg: #ffffff;
@@ -181,16 +181,18 @@ a:hover {
 
 .highlight-self {
   background-color: var(--highlight-self);
-  border: 1px solid #54aeff;
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 3px;
-  padding: 1px 6px;
+  padding: 1px 3px;
   font-weight: 600;
 }
 
 .highlight-other {
   background-color: var(--highlight-other);
+  color: #000000;
   border-radius: 3px;
-  padding: 1px 6px;
+  padding: 1px 3px;
   font-weight: 500;
 }
 
