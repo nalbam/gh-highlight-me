@@ -6,7 +6,7 @@
   "permissions": [
     "activeTab",
     "storage",
-    "https://github.com/*"
+    "*://github.com/*"
   ],
   "browser_specific_settings": {
     "gecko": {
@@ -20,7 +20,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://github.com/*"
+        "*://github.com/*"
       ],
       "js": [
         "content.js"

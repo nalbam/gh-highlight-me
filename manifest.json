@@ -8,12 +8,12 @@
     "storage"
   ],
   "host_permissions": [
-    "https://github.com/*"
+    "*://github.com/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://github.com/*"
+        "*://github.com/*"
       ],
       "js": [
         "content.js"
